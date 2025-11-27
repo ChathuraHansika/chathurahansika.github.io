@@ -1,0 +1,50 @@
+---
+---
+/* Simple, modern glassmorphism + minimal design */
+:root {
+  --bg: #f5f7fb;
+  --card: rgba(255,255,255,0.65);
+  --glass: rgba(255,255,255,0.6);
+  --text: #111827;
+  --muted: #6b7280;
+  --accent: #0066ff;
+}
+
+body.light {
+  background: linear-gradient(180deg,#f7fafc,#eef2ff);
+  color: var(--text);
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.6);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1rem 2rem;
+  z-index:100;
+}
+
+.container { max-width:900px; margin:2rem auto; padding:0 1rem; }
+.hero { display:flex; align-items:center; justify-content:center; height:60vh; text-align:center; }
+.hero-inner { backdrop-filter: blur(8px); background: var(--glass); padding:2rem; border-radius:16px; }
+.avatar { width:120px; height:120px; border-radius:50%; object-fit:cover; border:4px solid rgba(255,255,255,0.8); }
+.tagline { color:var(--muted); }
+.btn { display:inline-block; padding:0.6rem 1rem; border-radius:8px; background:var(--accent); color:white; text-decoration:none; margin:0.5rem; }
+.btn.outline { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+.card { background:var(--card); padding:1.25rem; border-radius:12px; margin-bottom:1rem; }
+.skill-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(120px,1fr)); gap:0.5rem; }
+.skill { padding:0.6rem; background:rgba(255,255,255,0.2); border-radius:8px; text-align:center; }
+.project-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:1rem; }
+.project-card { padding:1rem; border-radius:12px; background:rgba(255,255,255,0.7); }
+.badge { display:inline-block; padding:0.25rem 0.5rem; border-radius:6px; font-size:0.8rem; margin-right:0.25rem; background:rgba(0,0,0,0.05); }
+.muted { color:var(--muted); font-size:0.9rem; }
+
+@media (max-width:600px) {
+  .hero { height:50vh; }
+}
+
+.card, .project-card, .timeline-item { transform: translateY(8px); opacity:0; animation:fadeUp 600ms forwards; }
+@keyframes fadeUp { to { transform:none; opacity:1; } }
