@@ -1,140 +1,452 @@
----
----
-/* Simple, modern glassmorphism + minimal design */
+/* --- 1. Global Variables & Reset --- */
 :root {
-  --bg: #f5f7fb;
-  --card: rgba(255,255,255,0.65);
-  --glass: rgba(255,255,255,0.6);
-  --text: #111827;
-  --muted: #6b7280;
-  --accent: #0066ff;
+    /* DARK MODE (Default) */
+    --bg-color: #121212;
+    --text-color: #f0f0f0;
+    --card-bg: rgba(30, 30, 30, 0.6);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    --primary-color: #6a0dad; /* Deep Violet */
+    --accent-gradient: linear-gradient(135deg, #6a0dad, #a25be8); /* Deep Violet to Light Purple */
+    --shadow-color: #000000;
+    --shadow-opacity: 0.5;
 }
 
-body.light {
-  background: linear-gradient(180deg,#f7fafc,#eef2ff);
-  color: var(--text);
+/* LIGHT MODE overide */
+html[data-theme="light"] {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --card-bg: rgba(240, 240, 240, 0.8);
+    --glass-border: 1px solid rgba(0, 0, 0, 0.1);
+    --primary-color: #4b0082; /* Indigo */
+    --accent-gradient: linear-gradient(135deg, #8a2be2, #4b0082); /* Blue Violet */
+    --shadow-color: #cccccc;
+    --shadow-opacity: 0.3;
 }
 
-.site-header {
-  position: sticky;
-  top: 0;
-  backdrop-filter: blur(6px);
-  background: rgba(255,255,255,0.6);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:1rem 2rem;
-  z-index:100;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /* Smooth transition for theme switching */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
-.site-nav {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 1rem;
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
 }
 
-.nav-btn {
-  padding: 0.6rem 1.5rem;
-  border: none;
-  border-radius: 30px;      // pill-shaped buttons
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+a {
+    color: var(--primary-color);
+    text-decoration: none;
 }
 
-.nav-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
 }
 
-.nav-btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
+.section-padding {
+    padding: 80px 0;
 }
 
-.site-header {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 999;
-  backdrop-filter: blur(12px);       // Glass effect
-  background-color: rgba(255,255,255,0.15); // Light theme glass
-  box-shadow: 0 4px 30px rgba(0,0,0,0.1);
-  padding: 0.8rem 2rem;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+.section-title {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    color: var(--primary-color);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .site-header {
-  background-color: rgba(20,20,20,0.5);  // Dark theme glass
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+/* --- 2. Glassmorphism & 3D Shadow Core --- */
+.glassmorphism {
+    background: var(--card-bg);
+    border: var(--glass-border);
+    backdrop-filter: blur(12px); /* KEY GLASS EFFECT */
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    /* Subtle outer shadow for depth */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); 
 }
 
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
+.3d-shadow-card {
+    /* Base shadow for lift */
+    box-shadow: 0 10px 20px rgba(var(--shadow-color), 0.2), 0 6px 6px rgba(var(--shadow-color), 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.brand a {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.2); // 3D effect
-  text-decoration: none;
+.hover-lift:hover, .3d-shadow-card:hover {
+    transform: translateY(-8px); /* Lift effect */
+    /* Deeper shadow on hover */
+    box-shadow: 0 15px 30px rgba(var(--shadow-color), 0.4), 0 10px 10px rgba(var(--shadow-color), 0.25);
 }
 
-body.dark .brand a {
-  color: #8b5cf6; // brighter for dark mode
-  text-shadow: 1px 1px 8px rgba(0,0,0,0.6);
+/* --- 3. Header & Navigation --- */
+#main-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--card-bg);
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
 }
 
-#theme-toggle {
-  padding: 0.4rem 0.8rem;
-  border-radius: 50px;
-  border: none;
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
-  color: white;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+#main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 15px;
 }
 
-#theme-toggle:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+.logo {
+    font-size: 1.8em;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-button {
+    padding: 8px 18px;
+    border-radius: 50px; /* Pill shape */
+    text-decoration: none;
+    color: var(--text-color);
+    transition: background 0.3s, color 0.3s;
+    font-weight: 500;
+}
+
+.nav-button:hover, .nav-button.active {
+    background: var(--accent-gradient);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.toggle-button {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    font-size: 1.2em;
+}
+
+/* --- 4. Hero Section --- */
+#hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* Animated Gradient Background */
+    background: linear-gradient(135deg, var(--bg-color), var(--primary-color) 10%, var(--bg-color) 90%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.hero-content h2 {
+    font-size: 3.5em;
+    margin-top: 20px;
+}
+
+.tagline {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.profile-photo-3d {
+    perspective: 1000px;
+}
+
+.profile-photo-3d img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--primary-color);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+    transition: transform 0.5s ease-out;
+}
+
+.profile-photo-3d img:hover {
+    /* Subtle 3D tilt effect on hover */
+    transform: rotateY(5deg) rotateX(5deg) scale(1.05);
+}
+
+/* --- 5. Custom 3D Buttons --- */
+.cta-primary-3d, .cta-secondary-3d {
+    display: inline-block;
+    padding: 12px 30px;
+    margin: 0 10px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.cta-primary-3d {
+    background: var(--accent-gradient);
+    color: white;
+    box-shadow: 0 5px 0 0 #4b0082; /* 3D effect shadow */
+}
+
+.cta-primary-3d:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 0 0 #4b0082;
+}
+
+.cta-primary-3d:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 0 #4b0082;
+}
+
+.cta-secondary-3d {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    box-shadow: 0 3px 0 0 var(--primary-color);
+}
+
+.cta-secondary-3d:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 0 var(--primary-color);
+}
+.cta-secondary-3d:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 0 var(--primary-color);
+}
+
+/* --- 6. About Section --- */
+.about-card {
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+/* --- 7. Skills Section (Grid) --- */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+}
+
+.skill-badge {
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: default;
+    transition: all 0.3s;
+}
+
+.skill-badge:hover {
+    /* Hover gradient fill */
+    background: var(--accent-gradient);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* --- 8. Experience Timeline --- */
+.timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background: var(--primary-color);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+}
+
+.timeline-item {
+    padding: 20px 30px;
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 10px;
+    width: 45%;
+    /* Apply 3D shadow and hover effect */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* glassmorphism shadow */
+    box-shadow: 0 10px 20px rgba(var(--shadow-color), 0.2), 0 6px 6px rgba(var(--shadow-color), 0.15); /* 3d-shadow-card shadow */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.timeline-item h3 { color: var(--primary-color); }
+.timeline-item .duration { font-style: italic; opacity: 0.8; margin-bottom: 10px; }
+.timeline-item ul { padding-left: 20px; }
+
+/* Positioning (simplified) */
+.timeline-item:nth-child(odd) { left: 0; }
+.timeline-item:nth-child(even) { left: 55%; }
+
+/* --- 9. Projects Section --- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    padding: 25px;
+    background: var(--card-bg);
+    border: var(--glass-border);
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(var(--shadow-color), 0.4), 0 10px 10px rgba(var(--shadow-color), 0.25);
 }
 
 
-
-.container { max-width:900px; margin:2rem auto; padding:0 1rem; }
-.hero { display:flex; align-items:center; justify-content:center; height:60vh; text-align:center; }
-.hero-inner { backdrop-filter: blur(8px); background: var(--glass); padding:2rem; border-radius:16px; }
-.avatar { width:120px; height:120px; border-radius:50%; object-fit:cover; border:4px solid rgba(255,255,255,0.8); }
-.tagline { color:var(--muted); }
-.btn { display:inline-block; padding:0.6rem 1rem; border-radius:8px; background:var(--accent); color:white; text-decoration:none; margin:0.5rem; }
-.btn.outline { background:transparent; color:var(--accent); border:1px solid var(--accent); }
-.card { background:var(--card); padding:1.25rem; border-radius:12px; margin-bottom:1rem; }
-.skill-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(120px,1fr)); gap:0.5rem; }
-.skill { padding:0.6rem; background:rgba(255,255,255,0.2); border-radius:8px; text-align:center; }
-.project-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:1rem; }
-.project-card { padding:1rem; border-radius:12px; background:rgba(255,255,255,0.7); }
-.badge { display:inline-block; padding:0.25rem 0.5rem; border-radius:6px; font-size:0.8rem; margin-right:0.25rem; background:rgba(0,0,0,0.05); }
-.muted { color:var(--muted); font-size:0.9rem; }
-
-@media (max-width:600px) {
-  .hero { height:50vh; }
+.tech-stack .tech-badge {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    margin-right: 5px;
+    margin-top: 15px;
 }
 
-.card, .project-card, .timeline-item { transform: translateY(8px); opacity:0; animation:fadeUp 600ms forwards; }
-@keyframes fadeUp { to { transform:none; opacity:1; } }
+.project-links a {
+    margin-right: 15px;
+    margin-top: 15px;
+    display: inline-block;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* --- 10. Contact Form --- */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.3d-input-field {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-size: 1em;
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.3d-input-field:focus {
+    outline: none;
+    /* 3D focus effect */
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(var(--primary-color), 0.5), 0 0 5px rgba(var(--primary-color), 0.2);
+}
+
+textarea.3d-input-field {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.social-links-footer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 1.5em;
+}
+
+.social-links-footer a {
+    color: var(--text-color);
+    opacity: 0.7;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.social-links-footer a:hover {
+    opacity: 1;
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* --- 11. Footer --- */
+#main-footer {
+    padding: 30px 0;
+    text-align: center;
+    border-top: 1px solid var(--glass-border);
+    background: var(--card-bg);
+}
+
+/* --- 12. Animation Classes (Used by main.js) --- */
+.initial-hidden { 
+    opacity: 0; 
+    transform: translateY(20px); 
+}
+
+.fade-in.initial-hidden {
+    transform: none; 
+}
+
+.slide-up.visible, .fade-in.visible, .timeline-item.visible, .project-card.visible {
+    opacity: 1; 
+    transform: translateY(0); 
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* --- 13. Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; 
+    }
+
+    .hero-content h2 {
+        font-size: 2.5em;
+    }
+
+    .timeline::after {
+        left: 18px; 
+    }
+
+    .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        padding-left: 50px;
+    }
+}
