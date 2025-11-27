@@ -1,19 +1,24 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark"> 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title }} • {{ site.title }}</title>
-   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-  <script defer src="{{ '/assets/js/main.js' | relative_url }}"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title | default: site.title }} | {{ site.tagline }}</title>
+    <link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/img/favicon.ico">
+    
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="light">
-  {% include header.html %}
+<body>
 
-  <main class="container">
-    {{ content }}
-  </main>
+    {% include header.html %}
 
-  {% include footer.html %}
+    <main>
+        {{ content }}
+    </main>
+    
+    {% include footer.html %}
+
+    <script src="{{ site.baseurl }}/assets/js/main.js"></script>
 </body>
 </html>
