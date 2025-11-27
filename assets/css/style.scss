@@ -27,6 +27,38 @@ body.light {
   z-index:100;
 }
 
+.site-nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.nav-btn {
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 30px;      // pill-shaped buttons
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.nav-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+}
+
+.nav-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
+}
+
+
 .container { max-width:900px; margin:2rem auto; padding:0 1rem; }
 .hero { display:flex; align-items:center; justify-content:center; height:60vh; text-align:center; }
 .hero-inner { backdrop-filter: blur(8px); background: var(--glass); padding:2rem; border-radius:16px; }
