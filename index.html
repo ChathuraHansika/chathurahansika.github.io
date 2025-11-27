@@ -1,77 +1,85 @@
 ---
 layout: default
 title: Home
+permalink: /
 ---
-<section class="hero">
-  <div class="hero-inner">
-    <img src="/assets/img/profile-placeholder.jpg" alt="Chathura Hansika" class="avatar">
-    <h1>Chathura Hansika</h1>
-    <p class="tagline">Java Software Engineer — building scalable, cloud-ready services</p>
-    <div class="cta">
-      <a class="btn" href="/projects">View Projects</a>
-      <a class="btn outline" href="/contact">Contact Me</a>
-    </div>
-  </div>
-</section>
 
-<section class="card about-card">
-  <h2>About Me</h2>
-  <p>A passionate Java developer with experience in building scalable applications and cloud-ready services.</p>
-</section>
+<main>
+    <section id="hero" class="full-screen-section hero-section">
+        <div class="hero-content container">
+            <div class="profile-photo-3d fade-in">
+                <img src="{{ site.baseurl }}/assets/img/profile-placeholder.jpg" alt="Chathura Hansika Profile Photo">
+            </div>
+            <h2 class="fade-in">{{ site.author }}</h2>
+            <p class="tagline slide-up">{{ site.tagline }}</p>
+            <div class="cta-buttons slide-up">
+                <a href="{{ site.baseurl }}/contact/" class="cta-primary-3d">Get In Touch</a>
+                <a href="#" target="_blank" class="cta-secondary-3d">View CV (Placeholder)</a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="about" class="section-padding container">
+        <h2 class="section-title">✨ Quick Intro</h2>
+        <div class="about-card glassmorphism slide-up" style="padding: 30px;">
+            <p>"A passionate **Java developer** with experience in building scalable applications and cloud-ready services. I focus on clean architecture, performance, and leveraging modern cloud technologies (AWS/GCP) to deliver robust solutions."</p>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="{{ site.baseurl }}/about/" class="cta-secondary-3d" style="font-size: 0.9em; padding: 8px 20px;">More About Me &rarr;</a>
+            </div>
+        </div>
+    </section>
 
-<section id="skills" class="cards">
-  <h2>Skills</h2>
-  <div class="skill-grid">
-    <div class="skill">Java</div>
-    <div class="skill">Spring Boot</div>
-    <div class="skill">Microservices</div>
-    <div class="skill">SQL</div>
-    <div class="skill">MongoDB</div>
-    <div class="skill">AWS</div>
-    <div class="skill">GCP</div>
-    <div class="skill">Neo4j</div>
-    <div class="skill">Git</div>
-    <div class="skill">Linux</div>
-  </div>
-</section>
+    <section id="skills" class="section-padding container">
+        <h2 class="section-title">💻 Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-badge hover-effect slide-up">Java</div>
+            <div class="skill-badge hover-effect slide-up">Spring Boot</div>
+            <div class="skill-badge hover-effect slide-up">Microservices</div>
+            <div class="skill-badge hover-effect slide-up">SQL</div>
+            <div class="skill-badge hover-effect slide-up">MongoDB</div>
+            <div class="skill-badge hover-effect slide-up">AWS</div>
+            <div class="skill-badge hover-effect slide-up">GCP</div>
+            <div class="skill-badge hover-effect slide-up">Neo4j</div>
+            <div class="skill-badge hover-effect slide-up">Git</div>
+            <div class="skill-badge hover-effect slide-up">Linux</div>
+            <div class="skill-badge hover-effect slide-up">React</div>
+        </div>
+    </section>
 
-<section class="card">
-  <h2>Experience</h2>
-  <div class="timeline">
-    <div class="timeline-item">
-      <h3>Company ABC — Senior Software Engineer</h3>
-      <p class="muted">Jan 2023 — Present</p>
-      <p>Worked on microservices architecture, implemented CI/CD pipelines, and optimized backend services.</p>
-    </div>
-    <div class="timeline-item">
-      <h3>Company XYZ — Software Engineer</h3>
-      <p class="muted">Jul 2020 — Dec 2022</p>
-      <p>Built REST APIs using Spring Boot and contributed to database schema design and performance tuning.</p>
-    </div>
-  </div>
-</section>
+    <section id="experience-preview" class="section-padding container" style="text-align: center;">
+        <h2 class="section-title">💼 Latest Experience</h2>
+        <div class="timeline" style="max-width: 600px; margin: 0 auto; padding: 0;">
+            <div class="timeline-item 3d-shadow-card glassmorphism slide-up" style="width: 100%; left: 0;">
+                <h3>Java Software Engineer | TechCorp Solutions Inc.</h3>
+                <p class="duration">2020 - Present</p>
+                <p>Developing high-performance microservices and deploying cloud infrastructure on AWS.</p>
+                <a href="{{ site.baseurl }}/about/" class="read-more-link" style="margin-top: 10px; display: block;">See Full Timeline &rarr;</a>
+            </div>
+        </div>
+    </section>
 
-<section class="card">
-  <h2>Education</h2>
-  <ul>
-    <li>BSc in Computer Science — Example University (2016–2020)</li>
-  </ul>
-</section>
-
-<section class="card">
-  <h2>Featured Projects</h2>
-  <div class="project-grid">
-    <article class="project-card">
-      <img src="/assets/img/project-placeholder.png" alt="Project">
-      <h3>Project One</h3>
-      <p>Short description of the project. Tech: Java, Spring Boot, MongoDB.</p>
-      <div class="badges"> <span class="badge">Java</span> <span class="badge">Spring Boot</span> </div>
-      <div class="project-links"><a href="#">GitHub</a> • <a href="#">Demo</a></div>
-    </article>
-  </div>
-</section>
-
-<section class="card contact-teaser">
-  <h2>Contact</h2>
-  <p>Interested in collaborating? <a href="/contact">Get in touch</a>.</p>
-</section>
+    <section id="projects-preview" class="section-padding container">
+        <h2 class="section-title">🚀 Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card glassmorphism hover-lift slide-up">
+                <h3>Microservice Payment Gateway</h3>
+                <p>High-throughput payment processing system using Kafka and Spring Cloud.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Java</span>
+                    <span class="tech-badge">Spring Boot</span>
+                </div>
+            </div>
+            <div class="project-card glassmorphism hover-lift slide-up">
+                <h3>Real-time Geo-Spatial Service</h3>
+                <p>Location tracking and pathfinding using Neo4j and WebSockets.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Neo4j</span>
+                    <span class="tech-badge">React</span>
+                </div>
+            </div>
+        </div>
+        <div class="text-center" style="margin-top: 40px;">
+            <a href="{{ site.baseurl }}/projects/" class="cta-secondary-3d view-all-btn">View All Projects &rarr;</a>
+        </div>
+    </section>
+</main>
